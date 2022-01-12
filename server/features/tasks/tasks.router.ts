@@ -1,6 +1,8 @@
 import express from "express";
-import { createTask, deleteTask, getAllTasks, getTask } from "./tasks.conroller";
+import { validator } from "sequelize/dist/lib/utils/validator-extras";
+import { createTask, deleteTask, getAllTasks, getTask, updateTask } from "./tasks.conroller";
 import TasksModel from "./tasks.model";
+import { getIdValidator } from "./tasks.validator";
 
 const tasksRouter = express.Router()
 
@@ -17,5 +19,9 @@ tasksRouter.get('/:id', getTask)
 tasksRouter.post('/', createTask)
 
 tasksRouter.delete('/:id/delete', deleteTask)
+
+tasksRouter.patch('/:id', updateTask)
+
+tasksRouter.get('/:id',getIdValidator, getTask)
 
 export default tasksRouter

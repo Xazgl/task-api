@@ -27,3 +27,10 @@ export async function deleteTaskService(id: number) {
   const tasks = await TasksModel.findAll()
   return tasks
 }
+
+export async function updateTaskService(id: number, updatedTask: TaskDto) {
+   return TasksModel.update(updatedTask,{
+     where: {id}
+   })
+}
+
