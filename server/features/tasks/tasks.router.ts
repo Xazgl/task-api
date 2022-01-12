@@ -2,7 +2,8 @@ import express from "express";
 import { validator } from "sequelize/dist/lib/utils/validator-extras";
 import { createTask, deleteTask, getAllTasks, getTask, updateTask } from "./tasks.conroller";
 import TasksModel from "./tasks.model";
-import { getIdValidator } from "./tasks.validator";
+import { IdValidator } from "./tasks.validator";
+
 
 const tasksRouter = express.Router()
 
@@ -12,16 +13,21 @@ const tasksRouter = express.Router()
 // Read (HTTP - GET)
 // Read all tasks
 
+
 tasksRouter.get('/', getAllTasks)
 
 tasksRouter.get('/:id', getTask)
 
-tasksRouter.post('/', createTask)
+tasksRouter.post('/', createTaskValidator, createTask)
 
-tasksRouter.delete('/:id/delete', deleteTask)
+tasksRouter.delete('/:id/delete',IdValidator, deleteTask)
 
-tasksRouter.patch('/:id', updateTask)
+tasksRouter.patch('/:id',IdValidator, createTaskValidator, updateTask)
 
-tasksRouter.get('/:id',getIdValidator, getTask)
+tasksRouter.get('/:id',IdValidator, getTask)
 
 export default tasksRouter
+
+function createTaskValidator(arg0: string, createTaskValidator: any, createTask: (req: express.Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: express.Response<any, Record<string, any>>) => Promise<...>) {
+    throw new Error("Function not implemented.");
+}
